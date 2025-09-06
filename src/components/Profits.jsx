@@ -71,8 +71,7 @@ const Profits = () => {
   // ✅ Create or Update
   const handleSubmit = async (values) => {
     const payload = {
-      ...values,
-      date: values.date ? values.date.format("YYYY-MM-DD") : "",
+      ...values
     };
 
     try {
@@ -80,7 +79,7 @@ const Profits = () => {
         await axios.put(`${baseurl}/api/profits/update/${editingProfit._id}`, payload);
         message.success("Profit updated successfully!");
       } else {
-        await axios.post(`${baseurl}/api//api/profits/create`, payload);
+        await axios.post(`${baseurl}/api/profits/create`, payload);
         message.success("Profit created successfully!");
       }
       setIsModalOpen(false);
@@ -164,7 +163,7 @@ const Profits = () => {
             label="Date"
             rules={[{ required: true, message: "Please select date" }]}
           >
-            <DatePicker className="w-full" />
+             <Input placeholder="Enter date" />
           </Form.Item>
 
           <Form.Item name="equity" label="Equity">

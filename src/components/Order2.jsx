@@ -156,7 +156,7 @@ const Order2 = () => {
           </Form.Item>
 
           <Form.Item name="date" label="Date">
-            <Input placeholder="YYYY-MM-DD" />
+            <Input placeholder="21-Aug-25 25050 PE" />
           </Form.Item>
 
           {/* <Form.Item name="equity" label="Equity">

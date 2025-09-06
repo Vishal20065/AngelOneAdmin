@@ -87,9 +87,9 @@ const Order1 = () => {
     { title: "Name", dataIndex: "name", key: "name" },
     { title: "Date", dataIndex: "date", key: "date" },
     // { title: "Equity", dataIndex: "equity", key: "equity" },
-    // { title: "Price 1", dataIndex: "price1", key: "price1" },
+    { title: "Price 1", dataIndex: "price1", key: "price1" },
     { title: "Price 2", dataIndex: "price2", key: "price2" },
-    // { title: "Price 3", dataIndex: "price3", key: "price3" },
+    { title: "Price 3", dataIndex: "price3", key: "price3" },
     {
       title: "Actions",
       key: "actions",
@@ -151,24 +151,24 @@ const Order1 = () => {
           </Form.Item>
 
           <Form.Item name="date" label="Date">
-            <Input placeholder="YYYY-MM-DD" />
+            <Input placeholder="Expiring Tommorrow" />
           </Form.Item>
 
           {/* <Form.Item name="equity" label="Equity">
             <Input placeholder="Enter Equity" />
           </Form.Item> */}
 
-          {/* <Form.Item name="price1" label="Price 1">
+          <Form.Item name="price1" label="Price 1">
             <InputNumber className="w-full" placeholder="Enter Price 1" />
-          </Form.Item> */}
+          </Form.Item>
 
           <Form.Item name="price2" label="Price 2">
             <InputNumber className="w-full" placeholder="Enter Price 2" />
           </Form.Item>
 
-          {/* <Form.Item name="price3" label="Price 3">
+          <Form.Item name="price3" label="Price 3">
             <Input placeholder="Enter Price 3" />
-          </Form.Item> */}
+          </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className="w-full">
