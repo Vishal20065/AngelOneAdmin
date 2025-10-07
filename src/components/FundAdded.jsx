@@ -88,6 +88,7 @@ const FundAdded = () => {
     { title: "Account", dataIndex: "account", key: "account" },
     { title: "Price", dataIndex: "price", key: "price" },
     { title: "Status", dataIndex: "status", key: "status" },
+    { title: "date", dataIndex: "date", key: "date" },
     {
       title: "Actions",
       key: "actions",
@@ -163,6 +164,14 @@ const FundAdded = () => {
           >
             <InputNumber className="w-full" placeholder="Enter Price" />
           </Form.Item>
+
+          <Form.Item
+                      name="date"
+                      label="Date"
+                      rules={[{ required: true, message: "Please select date" }]}
+                    >
+                       <Input placeholder="Enter date" />
+                    </Form.Item>
 
           <Form.Item
             name="status"

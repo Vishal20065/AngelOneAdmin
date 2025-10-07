@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <div>
-      {shouldShowHeader && <Header />}  {/* 👈 only show when not on login */}
+      {<Header />}  {/* 👈 only show when not on login */}
 
       <Routes>
         <Route path="/" element={<Login />} />

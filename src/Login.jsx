@@ -15,18 +15,35 @@ const Login = () => {
         console.log(values)
         setLoading(true);
         try {
-            const response = await axios.post(baseurl+ '/api/users/login', {
+
+
+            
+            const response1 = await axios.post(baseurl+ '/api/users/UserByEmail', {
+                email: values.username, 
+                
+            },
+            );
+
+            console.log("response1",response1.data.user.session)
+
+
+            if(response1.data.user.session===false){
+                
+
+             const response = await axios.post(baseurl+ '/api/users/login', {
                 email: values.username, 
                 password: values.password,
             },
-           
-        );
+            );
 
            
 
             if ( response.data) {
+
+               
                 localStorage.setItem('authToken', response.data.token);
                 localStorage.setItem('auth', JSON.stringify(response.data));
+                localStorage.setItem('user', JSON.stringify(response.data.user));
                 setAuth({
                     ...auth,
                     user: response.data.user,
@@ -39,9 +56,14 @@ const Login = () => {
                 //     navigate('/admin'); 
                 // }
                 
-                    navigate('/admin/profits'); 
+               navigate('/admin/profits'); 
                 
                 
+
+            }
+
+
+          
             } else {
                 message.error('Invalid email or password');
             }

@@ -2,16 +2,27 @@ import React, { useState } from "react";
 import { Drawer, Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../context/auth";
+import axios from "axios";
+import { baseurl } from "../../helper/Helper";
 
 import { useNavigate } from "react-router-dom";
 const Header = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+ 
+const [auth, setAuth] = useAuth();
+
+const user = JSON.parse(localStorage.getItem('user'))
+console.log(user._id)
 
   const navigate = useNavigate()
 
 
-  const handleLogout = () => {
+  const handleLogout = async() => {
+     
+    await axios.get(`${baseurl}/api/users/logout/${user._id}`)
+
     localStorage.removeItem("authToken");
     navigate("/login");
   };

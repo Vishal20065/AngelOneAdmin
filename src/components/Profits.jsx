@@ -171,12 +171,21 @@ const Profits = () => {
           </Form.Item>
 
           <Form.Item name="realisedPl" label="Realised P&L">
-            <InputNumber className="w-full" placeholder="Enter Realised P&L" />
-          </Form.Item>
+  <InputNumber
+    className="w-full"
+    placeholder="Enter Realised P&L"
+    min={-Infinity}   // ✅ allows negative numbers
+  />
+</Form.Item>
 
-          <Form.Item name="charges" label="Charges">
-            <InputNumber className="w-full" placeholder="Enter Charges" />
-          </Form.Item>
+<Form.Item name="charges" label="Charges">
+  <InputNumber
+    className="w-full"
+    placeholder="Enter Charges"
+    min={-Infinity}   // ✅ allows negative numbers
+  />
+</Form.Item>
+
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className="w-full">

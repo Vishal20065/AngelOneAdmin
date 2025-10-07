@@ -90,6 +90,7 @@ const FundWithdraw = () => {
     { title: "Name", dataIndex: "name", key: "name" },
     { title: "Account", dataIndex: "account", key: "account" },
     { title: "Price", dataIndex: "price", key: "price" },
+    { title: "date", dataIndex: "date", key: "date" },
     { title: "Status", dataIndex: "status", key: "status" },
     {
       title: "Actions",
@@ -166,6 +167,15 @@ const FundWithdraw = () => {
           >
             <InputNumber className="w-full" placeholder="Enter Price" />
           </Form.Item>
+
+
+          <Form.Item
+                                name="date"
+                                label="Date"
+                                rules={[{ required: true, message: "Please select date" }]}
+                              >
+                                 <Input placeholder="Enter date" />
+                              </Form.Item>
 
           <Form.Item
             name="status"
