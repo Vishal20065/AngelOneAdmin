@@ -14,7 +14,7 @@ const Header = () => {
 const [auth, setAuth] = useAuth();
 
 const user = JSON.parse(localStorage.getItem('user'))
-console.log(user._id)
+
 
   const navigate = useNavigate()
 
