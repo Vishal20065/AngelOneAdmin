@@ -19,12 +19,12 @@ const Profile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProfile, setEditingProfile] = useState(null);
   const [form] = Form.useForm();
-
+const admin = JSON.parse(localStorage.getItem("auth"))
   // ✅ Fetch all profiles
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${baseurl}/api/profiles/get`);
+      const res = await axios.get(`${baseurl}/api/profiles/get/${admin.user._id}`);
       setData(res.data.data);
     //   console.log(res.data.data);
     } catch (err) {
@@ -68,11 +68,16 @@ const Profile = () => {
   // ✅ Create or Update Profile
   const handleSubmit = async (values) => {
     try {
+
+       const updatedValues = { 
+      ...values, 
+      admin: admin.user._id
+    };
       if (editingProfile) {
-        await axios.put(`${baseurl}/api/profiles/update/${editingProfile._id}`, values);
+        await axios.put(`${baseurl}/api/profiles/update/${editingProfile._id}`, updatedValues);
         message.success("Profile updated successfully!");
       } else {
-        await axios.post(`${baseurl}/api/profiles/create`, values);
+        await axios.post(`${baseurl}/api/profiles/create`, updatedValues);
         message.success("Profile created successfully!");
       }
       setIsModalOpen(false);
