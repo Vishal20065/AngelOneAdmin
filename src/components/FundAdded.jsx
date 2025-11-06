@@ -22,11 +22,14 @@ const FundAdded = () => {
   const [editingFund, setEditingFund] = useState(null);
   const [form] = Form.useForm();
 
+
+  const admin = JSON.parse(localStorage.getItem("auth"))
+  
   // ✅ Fetch all funds
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${baseurl}/api/funds/get`);
+      const res = await axios.get(`${baseurl}/api/funds/get/${admin.user._id}`);
       setData(res.data);
     } catch (err) {
       console.error(err);
@@ -69,11 +72,20 @@ const FundAdded = () => {
   // ✅ Create or Update Fund
   const handleSubmit = async (values) => {
     try {
+
+
+       const updatedValues = { 
+      ...values, 
+      admin: admin.user._id
+    };
+
       if (editingFund) {
-        await axios.put(`${baseurl}/api/funds/update/${editingFund._id}`, values);
+        await axios.put(`${baseurl}/api/funds/update/${editingFund._id}`, updatedValues);
         message.success("Fund updated successfully!");
       } else {
-        await axios.post(`${baseurl}/api/funds/create`, values);
+
+        
+        await axios.post(`${baseurl}/api/funds/create`, updatedValues);
         message.success("Fund created successfully!");
       }
       setIsModalOpen(false);

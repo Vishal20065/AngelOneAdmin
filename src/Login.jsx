@@ -11,68 +11,50 @@ const Login = () => {
     const [auth, setAuth] = useAuth();
    
 
-    const onFinish = async (values) => {
-        console.log(values)
-        setLoading(true);
-        try {
+ const onFinish = async (values) => {
+  console.log(values);
+  setLoading(true);
 
+  try {
+    const response = await axios.post(`${baseurl}/api/users/login`, {
+      email: values.username,
+      password: values.password,
+    });
 
-            
-            const response1 = await axios.post(baseurl+ '/api/users/UserByEmail', {
-                email: values.username, 
-                
-            },
-            );
+    if (response.data) {
+      const { token, user } = response.data;
 
-            console.log("response1",response1.data.user.session)
+      // Save authentication data
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("auth", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(user));
 
+      // Update context/state
+      setAuth({
+        ...auth,
+        user,
+        token,
+      });
 
-            if(response1.data.user.session===false){
-                
+      message.success("Login successful!");
 
-             const response = await axios.post(baseurl+ '/api/users/login', {
-                email: values.username, 
-                password: values.password,
-            },
-            );
+      // Redirect based on role
+      // if (user.role === "admin" || user.role === "superAdmin") {
+      //   navigate("/admin");
+      // } else {
+      //   navigate("/");
+      // }
 
-           
+      navigate("/admin/profits");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    message.error("Invalid email or password");
+  } finally {
+    setLoading(false);
+  }
+};
 
-            if ( response.data) {
-
-               
-                localStorage.setItem('authToken', response.data.token);
-                localStorage.setItem('auth', JSON.stringify(response.data));
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                setAuth({
-                    ...auth,
-                    user: response.data.user,
-                    token: response.data.token,
-                  });
-                message.info('Login successful!');
-
-                
-                // if(response.data.user.role ==='admin' || response.data.user.role ==='superAdmin'){
-                //     navigate('/admin'); 
-                // }
-                
-               navigate('/admin/profits'); 
-                
-                
-
-            }
-
-
-          
-            } else {
-                message.error('Invalid email or password');
-            }
-        } catch (error) {
-            message.error('Invalid email or password');
-            console.log(error)
-        }
-        setLoading(false);
-    };
 
 
   

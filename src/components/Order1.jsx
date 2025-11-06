@@ -20,11 +20,13 @@ const Order1 = () => {
   const [editingOrder, setEditingOrder] = useState(null);
   const [form] = Form.useForm();
 
+  const admin = JSON.parse(localStorage.getItem("auth"))
+
   // ✅ Fetch all orders
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${baseurl}/api/orders1/getAll`);
+      const res = await axios.get(`${baseurl}/api/orders1/getAll/${admin.user._id}`);
       setData(res.data);
     } catch (err) {
       console.error(err);
@@ -67,11 +69,16 @@ const Order1 = () => {
   // ✅ Create or Update Order
   const handleSubmit = async (values) => {
     try {
+          const updatedValues = { 
+      ...values, 
+      admin: admin.user._id
+    };
+
       if (editingOrder) {
-        await axios.put(`${baseurl}/api/orders1/${editingOrder._id}`, values);
+        await axios.put(`${baseurl}/api/orders1/${editingOrder._id}`, updatedValues);
         message.success("Order updated successfully!");
       } else {
-        await axios.post(`${baseurl}/api/orders1/create`, values);
+        await axios.post(`${baseurl}/api/orders1/create`, updatedValues);
         message.success("Order created successfully!");
       }
       setIsModalOpen(false);
